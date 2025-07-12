@@ -13,6 +13,7 @@ import FAQSection from '../components/FAQSection.jsx';
 import CTASection from '../components/CTASection.jsx';
 import Footer from '../components/Footer.jsx';
 import { CreditCard, Calculator, Gift } from 'lucide-react';
+import DealerMap from '../components/DealerMap.jsx';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('cash');
@@ -24,8 +25,15 @@ const Home = () => {
     soldCount: "500+ Unit",
     phone: "+6281234567890",
     location: "Toyota Jakarta Selatan",
-    photo: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b916cfac-aa6a-4133-9783-d1fe7de489fa.png"
+    photo: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b916cfac-aa6a-4133-9783-d1fe7de489fa.png",
   };
+
+  const dealerMap =
+  {
+    dealerAddress: 'Jl. Raya Cimahi No.123, Cimahi, Bandung, Jawa Barat, Indonesia',
+    dealerCoordinates: [-6.8722, 107.5426],
+  };
+
 
   const featuredCars = [
     {
@@ -495,6 +503,10 @@ const Home = () => {
         <CreditCalculator salesInfo={salesInfo} />
         <Testimonials testimonials={testimonials} />
         <FAQSection faqs={faqs} />
+        <DealerMap
+        dealerAddress={dealerMap.dealerAddress}
+        dealerCoordinates={dealerMap.dealerCoordinates}
+        />
         <CTASection salesInfo={salesInfo} />
       </main>
       <Footer salesInfo={salesInfo} />
