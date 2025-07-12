@@ -8,27 +8,31 @@ const Hero = ({ salesInfo }) => {
   const backgroundImages = [
     {
       url: '/images/innova-zenix.jpg',
-      mobileUrl: '/images/innova-zenix.jpg', // Versi mobile dengan rasio yang lebih baik
+      mobileUrl: '/images/innova-zenix.jpg',
       title: 'All New Kijang Innova Zenix',
-      subtitle: 'MPV Hybrid Keluarga'
+      subtitle: 'MPV Hybrid Keluarga',
+      alt: 'Toyota Kijang Innova Zenix di Toyota Cimahi'
     },
     {
       url: '/images/yaris-cross.jpg',
       mobileUrl: '/images/yaris-cross.jpg',
       title: 'Yaris Cross',
-      subtitle: 'SUV Kompak Hybrid'
+      subtitle: 'SUV Kompak Hybrid',
+      alt: 'Toyota Yaris Cross di Toyota Cimahi'
     },
     {
       url: '/images/avanza.jpg',
       mobileUrl: '/images/avanza.jpg',
       title: 'All New Avanza',
-      subtitle: 'MPV Favorit Keluarga'
+      subtitle: 'MPV Favorit Keluarga',
+      alt: 'Toyota Avanza di Toyota Cimahi'
     },
     {
       url: '/images/fortuner.jpg',
       mobileUrl: '/images/fortuner.jpg',
       title: 'All New Fortuner',
-      subtitle: 'SUV Premium'
+      subtitle: 'SUV Premium',
+      alt: 'Toyota Fortuner di Toyota Cimahi'
     }
   ];
 
@@ -42,35 +46,40 @@ const Hero = ({ salesInfo }) => {
 
   return (
     <section className="relative py-12 sm:py-16 lg:py-24 overflow-hidden min-h-screen flex items-center">
+      {/* Structured Data for Carousel */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": backgroundImages.map((image, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "Product",
+              "name": image.title,
+              "image": image.url,
+              "description": image.subtitle
+            }
+          }))
+        })}
+      </script>
+
       {/* Background Slider */}
       <div className="absolute inset-0 z-0">
         {backgroundImages.map((image, index) => (
-          <div
+          <motion.img
             key={index}
-            className={`absolute inset-0 w-full h-full transition-all duration-1000 ${
+            src={image.url}
+            alt={image.alt}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${
               index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
             }`}
-          >
-            {/* Desktop Background */}
-            <div 
-              className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${image.url})` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent opacity-80"></div>
-            </div>
-            
-            {/* Mobile Background - Optimized positioning */}
-            <div 
-              className="block md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-              style={{ 
-                backgroundImage: `url(${image.mobileUrl || image.url})`,
-                backgroundPosition: 'center 30%' // Posisi lebih baik untuk mobile
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
-            </div>
-          </div>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: index === currentSlide ? 1 : 0 }}
+            transition={{ duration: 1 }}
+          />
         ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent opacity-80 md:bg-gradient-to-b md:from-black/60 md:via-black/40 md:to-black/80"></div>
         
         {/* Navigation Arrows - Responsif */}
         <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 right-4 sm:right-6 lg:right-8 z-10 flex space-x-2 sm:space-x-4">
@@ -79,6 +88,7 @@ const Hero = ({ salesInfo }) => {
             className="text-white bg-gradient-to-r from-red-500 to-red-700 p-2 sm:p-3 lg:p-5 rounded-full shadow-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-white/30"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7" />
           </motion.button>
@@ -87,6 +97,7 @@ const Hero = ({ salesInfo }) => {
             className="text-white bg-gradient-to-r from-red-500 to-red-700 p-2 sm:p-3 lg:p-5 rounded-full shadow-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-white/30"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7" />
           </motion.button>
@@ -103,6 +114,7 @@ const Hero = ({ salesInfo }) => {
               }`}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
+              aria-label={`Go to slide ${index + 1}`}
             >
               {index === currentSlide && (
                 <motion.div
@@ -143,10 +155,10 @@ const Hero = ({ salesInfo }) => {
             </motion.div>
 
             <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold leading-tight tracking-tight transition duration-300 text-white">
-              Wujudkan <span className="text-red-500">Mimpi</span> Anda Bersama Toyota
+              Wujudkan <span className="text-red-500">Mimpi</span> Anda Bersama Toyota Cimahi
             </h1>
             <p className="max-w-lg mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg xl:text-xl text-gray-200 lg:mx-0 mx-auto">
-              Temukan mobil Toyota impian Anda di Bandung! Dapatkan penawaran eksklusif, kredit ringan, dan pelayanan terbaik dari dealer resmi Toyota.
+              Temukan mobil Toyota impian Anda di Cimahi, Bandung! Dapatkan penawaran eksklusif, kredit ringan, dan pelayanan terbaik dari dealer resmi Toyota.
             </p>
             
             {/* Features List - Responsif */}
@@ -172,13 +184,14 @@ const Hero = ({ salesInfo }) => {
             {/* Buttons - Responsif */}
             <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row justify-center lg:justify-start">
               <motion.a 
-                href={`https://wa.me/${salesInfo?.phone || '6281234567890'}?text=Halo%20${salesInfo?.name || 'Sales'},%20saya%20ingin%20info%20promo%20Toyota%20di%20Bandung`} 
+                href={`https://wa.me/${salesInfo?.phone || '6281234567890'}?text=Halo%20${salesInfo?.name || 'Sales'},%20saya%20ingin%20info%20promo%20Toyota%20di%20Cimahi`} 
                 className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 sm:py-4 space-x-2 text-sm sm:text-base font-semibold text-white transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 rounded-full shadow-lg hover:from-green-700 hover:to-green-800 transform hover:scale-105"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                rel="nofollow"
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Hubungi Dealer Bandung</span>
+                <span>Hubungi Dealer Cimahi</span>
               </motion.a>
               <motion.a 
                 href="#catalog" 
@@ -203,7 +216,7 @@ const Hero = ({ salesInfo }) => {
               <motion.img 
                 key={currentSlide}
                 src={backgroundImages[currentSlide].url} 
-                alt={backgroundImages[currentSlide].title}
+                alt={backgroundImages[currentSlide].alt}
                 className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

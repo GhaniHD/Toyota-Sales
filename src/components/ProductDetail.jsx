@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { FaWhatsapp, FaArrowLeft, FaCar, FaGasPump, FaUsers, FaCogs, FaInfoCircle } from 'react-icons/fa';
 
@@ -11,7 +12,7 @@ const ProductDetail = () => {
   if (!car) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Product not found</p>
+        <p>Produk tidak ditemukan</p>
       </div>
     );
   }
@@ -25,13 +26,64 @@ const ProductDetail = () => {
 
   return (
     <div className="bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
-      <button 
-        onClick={() => navigate(-1)}
-        className="fixed top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
-      >
-        <FaArrowLeft />
-        <span>Kembali</span>
-      </button>
+      {/* Metadata Dinamis */}
+      <Helmet>
+        <title>{`${car.name} ${car.variant} - Toyota Cimahi`}</title>
+        <meta
+          name="description"
+          content={`Dapatkan ${car.name} ${car.variant} di Toyota Cimahi dengan harga ${car.price}. Lihat spesifikasi, fitur, dan promo eksklusif!`}
+        />
+        <meta
+          name="keywords"
+          content={`${car.name}, ${car.variant}, Toyota Cimahi, dealer Toyota, mobil Toyota, harga ${car.name}, promo Toyota`}
+        />
+        <meta property="og:title" content={`${car.name} ${car.variant} - Toyota Cimahi`} />
+        <meta
+          property="og:description"
+          content={`Dapatkan ${car.name} ${car.variant} di Toyota Cimahi dengan harga ${car.price}. Lihat spesifikasi, fitur, dan promo eksklusif!`}
+        />
+        <meta property="og:image" content={car.image} />
+        <meta property="og:url" content={`https://websitekamu.com/products/${car.id}`} />
+        <meta property="og:type" content="product" />
+      </Helmet>
+
+      {/* Structured Data for Product */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": `${car.name} ${car.variant}`,
+          "image": car.image,
+          "description": car.description,
+          "url": `https://websitekamu.com/products/${car.id}`,
+          "offers": {
+            "@type": "Offer",
+            "price": car.price,
+            "priceCurrency": "IDR",
+            "availability": "http://schema.org/InStock",
+            "validThrough": car.validUntil || "2025-12-31"
+          }
+        })}
+      </script>
+
+      {/* Breadcrumb */}
+      <nav className="fixed top-4 left-4 z-10 flex items-center gap-2">
+        <motion.button 
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Kembali ke halaman sebelumnya"
+        >
+          <FaArrowLeft />
+          <span>Kembali</span>
+        </motion.button>
+        <div className="text-sm text-gray-600">
+          <a href="/" className="hover:underline">Beranda</a> &gt; 
+          <a href="#catalog" className="hover:underline">Katalog</a> &gt; 
+          <span>{car.name} {car.variant}</span>
+        </div>
+      </nav>
 
       <div className="container mx-auto px-4 sm:px-6 py-20">
         <motion.div 
@@ -40,18 +92,16 @@ const ProductDetail = () => {
           transition={{ duration: 0.5 }}
           className="bg-white rounded-2xl shadow-xl overflow-hidden"
         >
-          {/* Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Gambar Mobil */}
             <div className="bg-gray-200 flex items-center justify-center h-80 md:h-[38rem]">
               <img 
                 src={car.image} 
-                alt={car.name}
+                alt={`${car.name} ${car.variant} di Toyota Cimahi`}
                 className="w-full h-full object-contain p-4"
+                loading="lazy"
               />
             </div>
 
-            {/* Detail Produk */}
             <div className="p-6 sm:p-8 md:p-10">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 {car.name} <span className="text-gray-600 font-normal">{car.variant}</span>
@@ -101,20 +151,24 @@ const ProductDetail = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <motion.button
-                  onClick={() => window.open(`https://wa.me/${car.salesInfo?.phone || '6281234567890'}?text=Halo,%20saya%20tertarik%20dengan%20${car.name}%20${car.variant}`, '_blank')}
+                <motion.a
+                  href={`https://wa.me/${car.salesInfo?.phone || '6281234567890'}?text=Halo,%20saya%20tertarik%20dengan%20${car.name}%20${car.variant}`}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors flex-1"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label={`Hubungi via WhatsApp untuk ${car.name} ${car.variant}`}
                 >
                   <FaWhatsapp className="text-sm" />
                   <span className="truncate">WhatsApp</span>
-                </motion.button>
+                </motion.a>
                 <motion.button
                   onClick={() => alert('Test drive scheduled!')}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-colors flex-1"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label={`Jadwalkan test drive untuk ${car.name} ${car.variant}`}
                 >
                   <FaInfoCircle className="text-sm" />
                   <span className="truncate">Test Drive</span>

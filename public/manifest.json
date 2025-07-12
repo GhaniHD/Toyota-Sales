@@ -1,0 +1,21 @@
+{
+  "name": "Toyota Cimahi",
+  "short_name": "Toyota Cimahi",
+  "description": "Dealer resmi Toyota di Cimahi, Bandung. Penawaran terbaik untuk Avanza, Rush, Innova, dan lainnya.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d32f2f",
+  "icons": [
+    {
+      "src": "/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

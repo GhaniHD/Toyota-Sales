@@ -43,6 +43,8 @@ const Header = ({ salesInfo, isMenuOpen, setIsMenuOpen }) => {
     isScrolled ? 'bg-white/95 backdrop-blur-lg' : 'bg-black/30 backdrop-blur-lg'
   }`;
 
+ NirunAwal:1;
+
   const mobileNavLinkStyles = `relative px-4 py-3 font-medium rounded-xl transition-all duration-200 ${
     isScrolled ? 'text-gray-700 hover:bg-gray-50 hover:text-red-600' : 'text-white hover:bg-white/10 hover:text-red-200'
   }`;
@@ -70,9 +72,10 @@ const Header = ({ salesInfo, isMenuOpen, setIsMenuOpen }) => {
 
   const renderContactButton = (isMobile = false, onClick = () => {}) => (
     <motion.a
-      href={`https://wa.me/${salesInfo.phone}`}
+      href={`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name}%2C%20saya%20ingin%20info%20promo%20Toyota%20di%20Cimahi`}
       className={`${contactButtonStyles} ${isMobile ? 'w-fit' : ''}`}
       onClick={onClick}
+      rel="nofollow"
       initial={{ opacity: 0, [isMobile ? 'y' : 'scale']: isMobile ? 20 : 0.8 }}
       animate={{ opacity: 1, [isMobile ? 'y' : 'scale']: isMobile ? 0 : 1 }}
       transition={{ duration: isMobile ? 0.3 : 0.5, delay: 0.4 }}
@@ -86,6 +89,30 @@ const Header = ({ salesInfo, isMenuOpen, setIsMenuOpen }) => {
 
   return (
     <header className={headerStyles}>
+      {/* Structured Data for Organization */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Toyota Cimahi",
+          "url": "https://websitekamu.com",
+          "logo": "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-logo.jpg",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": salesInfo.phone,
+            "contactType": "Sales",
+            "contactOption": "WhatsApp",
+            "areaServed": "ID",
+            "availableLanguage": ["Indonesian", "English"]
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cimahi",
+            "addressRegion": "Jawa Barat",
+            "addressCountry": "ID"
+          }
+        })}
+      </script>
       <div className="container flex items-center justify-between px-6 py-4 mx-auto">
         {/* Logo Section */}
         <motion.div className="flex items-center space-x-3" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>

@@ -1,13 +1,40 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Star, CheckCircle } from 'lucide-react';
 
 const Testimonials = ({ testimonials }) => {
   return (
     <section id="testimoni" className="py-16 bg-white">
+      {/* Structured Data for Reviews */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Review",
+          "itemReviewed": {
+            "@type": "Organization",
+            "name": "Toyota Cimahi"
+          },
+          "review": testimonials.map((testimonial) => ({
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": testimonial.name
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": testimonial.stars,
+              "bestRating": "5"
+            },
+            "reviewBody": testimonial.text,
+            "itemReviewed": {
+              "@type": "Product",
+              "name": testimonial.car
+            }
+          }))
+        })}
+      </script>
       <div className="container px-4 mx-auto">
-        <h2 className="mb-4 text-3xl font-bold text-center text-gray-900">Apa Kata Pelanggan Kami?</h2>
-        <p className="mb-12 text-base text-center text-gray-600">Ulasan asli dari pelanggan yang puas</p>
+        <h2 className="mb-4 text-3xl font-bold text-center text-gray-900">Apa Kata Pelanggan Toyota Cimahi?</h2>
+        <p className="mb-12 text-base text-center text-gray-600">Ulasan asli dari pelanggan yang puas di dealer resmi Toyota Cimahi</p>
         
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
@@ -22,8 +49,9 @@ const Testimonials = ({ testimonials }) => {
               <div className="flex items-center mb-4">
                 <img 
                   src={testimonial.avatar} 
-                  alt={testimonial.name}
+                  alt={`Avatar ${testimonial.name}, pelanggan Toyota Cimahi`} 
                   className="w-12 h-12 mr-4 rounded-full"
+                  loading="lazy"
                 />
                 <div>
                   <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
@@ -60,7 +88,7 @@ const Testimonials = ({ testimonials }) => {
                 <Star key={i} className="w-5 h-5 fill-current text-amber-400" />
               ))}
             </div>
-            <span className="font-semibold text-green-800">4.9/5 dari 500+ ulasan</span>
+            <span className="font-semibold text-green-800">4.9/5 dari 500+ ulasan di Toyota Cimahi</span>
           </motion.div>
         </div>
       </div>

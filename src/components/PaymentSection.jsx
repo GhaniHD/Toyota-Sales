@@ -1,13 +1,28 @@
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Phone } from 'lucide-react';
 
 const PaymentSection = ({ paymentMethods, activeTab, setActiveTab, salesInfo }) => {
   return (
     <section id="payment" className="py-16 bg-white">
+      {/* Structured Data for Payment Methods */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": paymentMethods.map((method, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "PaymentMethod",
+              "name": method.title,
+              "description": method.benefits.join(", ")
+            }
+          }))
+        })}
+      </script>
       <div className="container px-4 mx-auto">
-        <h2 className="mb-4 text-3xl font-bold text-center text-gray-900">Metode Pembayaran</h2>
-        <p className="mb-12 text-base text-center text-gray-600">Pilih opsi pembayaran yang sesuai dengan kebutuhan Anda</p>
+        <h2 className="mb-4 text-3xl font-bold text-center text-gray-900">Metode Pembayaran Toyota Cimahi</h2>
+        <p className="mb-12 text-base text-center text-gray-600">Pilih opsi pembayaran yang sesuai dengan kebutuhan Anda di dealer resmi Toyota Cimahi</p>
         
         <div className="flex justify-center mb-8">
           <div className="flex flex-wrap justify-center gap-2 p-1 bg-gray-100 rounded-full">
@@ -22,6 +37,7 @@ const PaymentSection = ({ paymentMethods, activeTab, setActiveTab, salesInfo }) 
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label={`Pilih metode pembayaran ${method.title}`}
               >
                 {method.title}
               </motion.button>
@@ -91,10 +107,13 @@ const PaymentSection = ({ paymentMethods, activeTab, setActiveTab, salesInfo }) 
                   
                   <div className="mt-8 text-center">
                     <motion.a 
-                      href={`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name},%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20${method.title}`} 
+                      href={`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name},%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20${method.title}%20di%20Toyota%20Cimahi`} 
                       className="inline-flex items-center px-8 py-3 space-x-2 font-semibold text-white transition-colors duration-200 bg-red-600 rounded-full hover:bg-red-700"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      aria-label={`Konsultasi ${method.title} via WhatsApp`}
                     >
                       <Phone className="w-5 h-5" />
                       <span>Konsultasi {method.title}</span>

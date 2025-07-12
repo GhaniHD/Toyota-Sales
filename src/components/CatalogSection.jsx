@@ -20,18 +20,42 @@ const CatalogSection = ({ catalogByType, carTypes, salesInfo }) => {
 
   const handleContactClick = (e, car) => {
     e.stopPropagation();
-    window.open(`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name},%20saya%20tertarik%20dengan%20${car.name}%20${car.variant}`, '_blank');
+    window.open(`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name},%20saya%20tertarik%20dengan%20${car.name}%20${car.variant}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <section id="catalog" className="py-12 md:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      {/* Structured Data for Products */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": allCars.map((car, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "Product",
+              "name": `${car.name} ${car.variant}`,
+              "image": car.image,
+              "description": car.description,
+              "url": `https://websitekamu.com/products/${car.id}`,
+              "offers": {
+                "@type": "Offer",
+                "price": car.price,
+                "priceCurrency": "IDR",
+                "availability": "http://schema.org/InStock"
+              }
+            }
+          }))
+        })}
+      </script>
       <div className="container px-4 sm:px-6 mx-auto">
         <div className="mb-12 md:mb-16 text-center">
           <h2 className="mb-4 text-3xl sm:text-4xl md:text-5xl leading-tight font-extrabold text-red-500">
-            Katalog Mobil Toyota
+            Katalog Mobil Toyota Cimahi
           </h2>
           <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-600 font-medium mb-8 md:mb-12 px-4">
-            Temukan model Toyota terbaik untuk kebutuhan Anda
+            Temukan model Toyota terbaik untuk kebutuhan Anda di dealer resmi Toyota Cimahi
           </p>
         </div>
 
@@ -45,6 +69,7 @@ const CatalogSection = ({ catalogByType, carTypes, salesInfo }) => {
             onClick={() => setSelectedType('All')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Lihat semua tipe mobil"
           >
             Semua Tipe
           </motion.button>
@@ -59,6 +84,7 @@ const CatalogSection = ({ catalogByType, carTypes, salesInfo }) => {
               onClick={() => setSelectedType(type)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={`Lihat mobil tipe ${type}`}
             >
               {type}
             </motion.button>
@@ -90,8 +116,9 @@ const CatalogSection = ({ catalogByType, carTypes, salesInfo }) => {
                     <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 rounded-t-xl md:rounded-t-2xl">
                       <img 
                         src={car.image} 
-                        alt={car.name} 
+                        alt={`${car.name} ${car.variant} di Toyota Cimahi`} 
                         className="object-cover w-full h-full transition-transform duration-300 transform group-hover:scale-105" 
+                        loading="lazy"
                       />
                       <div className="absolute px-3 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-md top-3 right-3 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm">
                         <span className="text-xs font-bold text-gray-700">OTR</span>
@@ -111,26 +138,29 @@ const CatalogSection = ({ catalogByType, carTypes, salesInfo }) => {
                       </div>
                     </div>
                     
-                    {/* Single Row Buttons */}
                     <div className="flex flex-nowrap gap-2">
                       <motion.button
                         onClick={() => handleDetailClick(car.id)}
                         className="flex items-center justify-center gap-1 px-3 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors flex-1"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
+                        aria-label={`Lihat detail ${car.name} ${car.variant}`}
                       >
                         <FaInfoCircle className="text-xs sm:text-sm" />
                         <span className="truncate">Detail</span>
                       </motion.button>
-                      <motion.button
-                        onClick={(e) => handleContactClick(e, car)}
+                      <motion.a
+                        href={`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name},%20saya%20tertarik%20dengan%20${car.name}%20${car.variant}`}
                         className="flex items-center justify-center gap-1 px-3 py-2 text-xs sm:text-sm font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors flex-1"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        aria-label={`Hubungi via WhatsApp untuk ${car.name} ${car.variant}`}
                       >
                         <FaWhatsapp className="text-xs sm:text-sm" />
                         <span className="truncate">WhatsApp</span>
-                      </motion.button>
+                      </motion.a>
                     </div>
                   </div>
                 </motion.div>

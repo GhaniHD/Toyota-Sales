@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import PromoBanner from '../components/PromoBanner.jsx';
@@ -39,6 +40,7 @@ const Home = () => {
       promo: "Free Aksesoris Premium + Extended Warranty",
       validUntil: "31 Desember 2025",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d9565221-6604-464c-81cd-c5483ee0ae33.png",
+      imageAlt: "Toyota Fortuner 2.4 VRZ AT di Toyota Cimahi",
       features: ["4WD", "Diesel 2.4L", "7 Seater", "Leather Seats", "Sunroof", "LED Headlights"],
       specs: { 
         engine: "2.4L Diesel", 
@@ -62,6 +64,7 @@ const Home = () => {
       promo: "DP Ringan 10% + Cashback Rp 5 Juta",
       validUntil: "Terbatas",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0ac4130d-4b0d-45c4-a7a8-0a6e79760dd6.png",
+      imageAlt: "Toyota Rush 1.5 TRD Sportivo di Toyota Cimahi",
       features: ["SUV Compact", "1.5L DOHC", "7 Seater", "6 Airbags", "ABS+EBD", "Smart Entry"],
       specs: { 
         engine: "1.5L DOHC", 
@@ -85,6 +88,7 @@ const Home = () => {
       promo: "Angsuran Ringan + Gratis Asuransi 1 Tahun",
       validUntil: "Stock terbatas",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4b4a85eb-1c68-4967-a4cf-75e0f66d918a.png",
+      imageAlt: "Toyota Avanza 1.3 Veloz CVT di Toyota Cimahi",
       features: ["MPV", "1.3L VVT-i", "7 Seater", "CVT", "Dual Airbags", "Eco Mode"],
       specs: { 
         engine: "1.3L VVT-i", 
@@ -108,6 +112,7 @@ const Home = () => {
       promo: "Trade-in Bonus + Extended Warranty 5 Tahun",
       validUntil: "31 Oktober 2024",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e95fb478-7ce9-419d-bd5f-289d754d55f0.png",
+      imageAlt: "Toyota Innova 2.0 G AT di Toyota Cimahi",
       features: ["MPV Premium", "2.0L Bensin", "8 Seater", "Captain Seat", "Dual A/C", "Stability Control"],
       specs: { 
         engine: "2.0L VVT-i", 
@@ -131,6 +136,7 @@ const Home = () => {
       promo: "Gratis Asuransi 2 Tahun + Paket Aksesoris",
       validUntil: "31 Desember 2025",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-camry-placeholder.png",
+      imageAlt: "Toyota Camry 2.5 V AT di Toyota Cimahi",
       features: ["Sedan Premium", "2.5L VVT-i", "5 Seater", "Leather Seats", "Adaptive Cruise Control", "Lane Departure Alert"],
       specs: { 
         engine: "2.5L VVT-i", 
@@ -154,6 +160,7 @@ const Home = () => {
       promo: "Cashback Rp 10 Juta + Gratis Servis 2 Tahun",
       validUntil: "Terbatas",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-yaris-placeholder.png",
+      imageAlt: "Toyota Yaris 1.5 TRD Sportivo CVT di Toyota Cimahi",
       features: ["Hatchback Sporty", "1.5L VVT-i", "5 Seater", "Paddle Shift", "6 Airbags", "Touchscreen Audio"],
       specs: { 
         engine: "1.5L VVT-i", 
@@ -177,6 +184,7 @@ const Home = () => {
       promo: "Gratis Paket Servis 3 Tahun",
       validUntil: "31 Desember 2025",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-hilux-placeholder.png",
+      imageAlt: "Toyota Hilux 2.4 G MT di Toyota Cimahi",
       features: ["Double Cabin", "2.4L Diesel", "4WD", "Touchscreen Audio", "ABS", "Hill Start Assist"],
       specs: { 
         engine: "2.4L Diesel", 
@@ -200,6 +208,7 @@ const Home = () => {
       promo: "Diskon Rp 15 Juta + Gratis Asuransi",
       validUntil: "Stock terbatas",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-corolla-placeholder.png",
+      imageAlt: "Toyota Corolla Altis 1.8 V AT di Toyota Cimahi",
       features: ["Sedan", "1.8L VVT-i", "5 Seater", "Push Start Button", "7 Airbags", "Lane Keep Assist"],
       specs: { 
         engine: "1.8L VVT-i", 
@@ -223,6 +232,7 @@ const Home = () => {
       promo: "Gratis Servis 2 Tahun + Cashback Rp 10 Juta",
       validUntil: "31 Desember 2025",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-hiace-placeholder.png",
+      imageAlt: "Toyota HiAce Commuter MT di Toyota Cimahi",
       features: ["Minibus", "2.8L Diesel", "15 Seater", "Sliding Door", "Dual A/C", "ABS"],
       specs: { 
         engine: "2.8L Diesel", 
@@ -246,6 +256,7 @@ const Home = () => {
       promo: "DP Ringan + Gratis Aksesoris",
       validUntil: "Terbatas",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-veloz-placeholder.png",
+      imageAlt: "Toyota Veloz 1.5 Q CVT di Toyota Cimahi",
       features: ["MPV", "1.5L VVT-i", "7 Seater", "Keyless Entry", "6 Airbags", "Rear Camera"],
       specs: { 
         engine: "1.5L VVT-i", 
@@ -268,7 +279,8 @@ const Home = () => {
       installment: "Rp 3.800.000",
       promo: "Cashback Rp 8 Juta + Gratis Servis",
       validUntil: "Stock terbatas",
-      image: " https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-raize-placeholder.png",
+      image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-raize-placeholder.png",
+      imageAlt: "Toyota Raize 1.0 Turbo GR Sport di Toyota Cimahi",
       features: ["Compact SUV", "1.0L Turbo", "5 Seater", "LED Headlights", "Smart Entry", "Paddle Shift"],
       specs: { 
         engine: "1.0L Turbo", 
@@ -292,6 +304,7 @@ const Home = () => {
       promo: "Gratis Asuransi 1 Tahun",
       validUntil: "31 Desember 2025",
       image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-aygo-placeholder.png",
+      imageAlt: "Toyota Agyo 1.0 VVT-i MT di Toyota Cimahi",
       features: ["City Car", "1.0L VVT-i", "5 Seater", "Compact Design", "Dual Airbags", "Touchscreen Audio"],
       specs: { 
         engine: "1.0L VVT-i", 
@@ -445,21 +458,45 @@ const Home = () => {
 
   return (
     <div className="min-h-screen font-sans bg-gray-100">
+      <Helmet>
+        <title>Toyota Cimahi - Dealer Resmi Toyota</title>
+        <meta
+          name="description"
+          content="Dealer resmi Toyota di Cimahi. Temukan mobil Toyota terbaru seperti Avanza, Fortuner, Innova, dan promo menarik."
+        />
+        <meta
+          name="keywords"
+          content="Toyota Cimahi, dealer Toyota, mobil Toyota, promo Toyota, Avanza, Fortuner, Innova, Rush, kredit Toyota"
+        />
+        <meta property="og:title" content="Toyota Cimahi - Dealer Resmi Toyota" />
+        <meta
+          property="og:description"
+          content="Temukan mobil Toyota impian Anda di dealer resmi Toyota Cimahi dengan harga terbaik dan promo menarik."
+        />
+        <meta
+          property="og:image"
+          content="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/toyota-logo.jpg"
+        />
+        <meta property="og:url" content="https://websitekamu.com/" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Header salesInfo={salesInfo} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <Hero salesInfo={salesInfo} />
-      <PromoBanner />
-      <PromoSection promoCars={promoCars} promoSpecials={promoSpecials} salesInfo={salesInfo} />
-      <CatalogSection 
-        catalogByType={catalogByType} 
-        carTypes={carTypes} 
-        salesInfo={salesInfo} 
-      />
-      <SalesProfile salesInfo={salesInfo} />
-      <PaymentSection paymentMethods={paymentMethods} activeTab={activeTab} setActiveTab={setActiveTab} salesInfo={salesInfo} />
-      <CreditCalculator salesInfo={salesInfo} />
-      <Testimonials testimonials={testimonials} />
-      <FAQSection faqs={faqs} />
-      <CTASection salesInfo={salesInfo} />
+      <main>
+        <Hero salesInfo={salesInfo} />
+        <PromoBanner />
+        <PromoSection promoCars={promoCars} promoSpecials={promoSpecials} salesInfo={salesInfo} />
+        <CatalogSection 
+          catalogByType={catalogByType} 
+          carTypes={carTypes} 
+          salesInfo={salesInfo} 
+        />
+        <SalesProfile salesInfo={salesInfo} />
+        <PaymentSection paymentMethods={paymentMethods} activeTab={activeTab} setActiveTab={setActiveTab} salesInfo={salesInfo} />
+        <CreditCalculator salesInfo={salesInfo} />
+        <Testimonials testimonials={testimonials} />
+        <FAQSection faqs={faqs} />
+        <CTASection salesInfo={salesInfo} />
+      </main>
       <Footer salesInfo={salesInfo} />
     </div>
   );
