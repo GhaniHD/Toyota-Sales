@@ -81,6 +81,7 @@ const SalesProfile = ({ salesInfo }) => {
 
   return (
     <motion.section 
+      id ="sales-profile"
       ref={ref}
       initial="hidden"
       animate={controls}

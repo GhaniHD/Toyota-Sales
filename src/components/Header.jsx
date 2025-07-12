@@ -72,7 +72,7 @@ const Header = ({ salesInfo, isMenuOpen, setIsMenuOpen }) => {
 
   const renderContactButton = (isMobile = false, onClick = () => {}) => (
     <motion.a
-      href={`https://wa.me/${salesInfo.phone}?text=Halo%20${salesInfo.name}%2C%20saya%20ingin%20info%20promo%20Toyota%20di%20Cimahi`}
+      href={`#sales-profile`}
       className={`${contactButtonStyles} ${isMobile ? 'w-fit' : ''}`}
       onClick={onClick}
       rel="nofollow"
