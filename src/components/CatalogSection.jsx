@@ -21,6 +21,13 @@ const CatalogSection = ({ catalogByType = {}, carTypes = [], salesInfo = {} }) =
   // Placeholder image URL
   const placeholderImage = '/images/placeholder-car.jpg'; // Adjust this path to your actual placeholder image
 
+  // Function to format price with dot separators
+  const formatPrice = (price) => {
+    if (!price) return 'N/A';
+    const priceStr = price.toString();
+    return 'Rp. ' + priceStr.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
   const handleDetailClick = (carSlug) => {
     navigate(`/products/${carSlug}`);
   };
@@ -159,7 +166,7 @@ const CatalogSection = ({ catalogByType = {}, carTypes = [], salesInfo = {} }) =
                       <div className="p-3 sm:p-4 mb-4 sm:mb-6 border border-red-100 bg-gradient-to-r from-red-50/80 to-red-100/80 rounded-lg sm:rounded-xl">
                         <div className="flex items-center justify-between">
                           <span className="text-xs sm:text-sm font-semibold text-gray-700">Harga OTR</span>
-                          <span className="text-base sm:text-lg font-bold text-red-600">{car.price}</span>
+                          <span className="text-base sm:text-lg font-bold text-red-600">{formatPrice(car.price)}</span>
                         </div>
                       </div>
 

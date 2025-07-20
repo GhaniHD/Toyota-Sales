@@ -536,15 +536,21 @@ const AdminPanel = () => {
             </div>
             <div>
               <label className="block text-gray-700 font-medium mb-1">Type</label>
-              <input
-                type="text"
+              <select
                 name="type"
                 value={formData.type || ''}
                 onChange={handleFormChange}
-                placeholder="Enter type"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 required
-              />
+              >
+                <option value="">Select Type</option>
+                <option value="MPV">MPV</option>
+                <option value="SUV">SUV</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Komersial">Komersial</option>
+                <option value="Sport">Sport</option>
+              </select>
             </div>
             <div className="md:col-span-2">
               <label className="block text-gray-700 font-medium mb-1">Description</label>
@@ -658,7 +664,7 @@ const AdminPanel = () => {
               <textarea
                 name="text"
                 value={formData.text || ''}
-                onChange={handleFormChange}
+                onChange= {handleFormChange}
                 placeholder="Enter testimonial text"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 required

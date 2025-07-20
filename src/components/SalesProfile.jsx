@@ -59,16 +59,19 @@ const SalesProfile = ({ salesInfo }) => {
     if (inView) {
       controls.start("visible");
     }
-  }, [controls, inView]);
+    console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+    console.log('Sales Info details:', JSON.stringify(salesInfo, null, 2));
+    console.log('Image URL used:', `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${salesInfo?.image_url || defaultSalesInfo.image_url}`);
+  }, [controls, inView, salesInfo]);
 
   const defaultSalesInfo = {
     name: "Rifki",
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     phone: "0812-2070-8018",
     experience: "10+ Tahun",
     soldCount: "500+ Unit",
-    instagram: "https://www.instagram.com/rifki_sales_toyota",
-    tiktok: "https://www.tiktok.com/@rifki_sales_toyota"
+    instagram_url: "https://www.instagram.com/rifki_sales_toyota",
+    tiktok_url: "https://www.tiktok.com/@rifki_sales_toyota"
   };
 
   const data = { ...defaultSalesInfo, ...salesInfo };
@@ -81,14 +84,13 @@ const SalesProfile = ({ salesInfo }) => {
 
   return (
     <motion.section 
-      id ="sales-profile"
+      id="sales-profile"
       ref={ref}
       initial="hidden"
       animate={controls}
       variants={containerVariants}
       className="py-8 sm:py-16 bg-white"
     >
-      {/* Structured Data for Person */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -96,9 +98,9 @@ const SalesProfile = ({ salesInfo }) => {
           "name": data.name,
           "jobTitle": "Sales Consultant Toyota Cimahi",
           "telephone": data.phone,
-          "image": data.photo,
+          "image": `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${data.image_url || defaultSalesInfo.image_url}`,
           "url": "https://websitekamu.com/#sales-profile",
-          "sameAs": [data.instagram, data.tiktok],
+          "sameAs": [data.instagram_url || defaultSalesInfo.instagram_url, data.tiktok_url || defaultSalesInfo.tiktok_url],
           "worksFor": {
             "@type": "Organization",
             "name": "Toyota Cimahi",
@@ -124,10 +126,14 @@ const SalesProfile = ({ salesInfo }) => {
               className="w-full lg:w-1/4 flex justify-center"
             >
               <img 
-                src={data.photo} 
+                src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${data.image_url || defaultSalesInfo.image_url}`}
                 alt={`Profil ${data.name}, Sales Toyota Cimahi`} 
                 className="w-64 sm:w-80 h-80 sm:h-96 object-cover rounded-2xl shadow-md"
                 loading="lazy"
+                onError={(e) => {
+                  console.error('Image failed to load, using fallback:', defaultSalesInfo.image_url);
+                  e.target.src = defaultSalesInfo.image_url;
+                }}
               />
             </motion.div>
 
@@ -168,7 +174,7 @@ const SalesProfile = ({ salesInfo }) => {
                   className="flex flex-wrap justify-center lg:justify-start gap-4 mb-6"
                 >
                   <motion.a
-                    href={data.instagram}
+                    href={data.instagram_url || defaultSalesInfo.instagram_url}
                     className="flex items-center px-5 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg shadow-md cursor-pointer focus:outline-none"
                     variants={buttonVariants}
                     whileHover="hover"
@@ -183,7 +189,7 @@ const SalesProfile = ({ salesInfo }) => {
                   </motion.a>
                   
                   <motion.a
-                    href={data.tiktok}
+                    href={data.tiktok_url || defaultSalesInfo.tiktok_url}
                     className="flex items-center px-5 py-3 bg-gradient-to-r from-gray-800 to-black text-white rounded-lg shadow-md cursor-pointer focus:outline-none"
                     variants={buttonVariants}
                     whileHover="hover"
