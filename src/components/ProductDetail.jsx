@@ -1,13 +1,20 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 import { FaWhatsapp, FaArrowLeft, FaCar, FaGasPump, FaUsers, FaCogs, FaInfoCircle } from 'react-icons/fa';
 
 const ProductDetail = () => {
-  const { state } = useLocation();
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const car = state?.car;
+  const [car, setCar] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/cars?slug=${slug}`)
+      .then(response => setCar(response.data[0]))
+      .catch(err => console.error('Error fetching car:', err));
+  }, [slug]);
 
   if (!car) {
     return (
@@ -19,14 +26,13 @@ const ProductDetail = () => {
 
   const specifications = [
     { icon: <FaCar className="text-red-600" />, label: 'Tipe', value: car.type },
-    { icon: <FaGasPump className="text-red-600" />, label: 'Bahan Bakar', value: car.specs.fuelType || 'Bensin' },
-    { icon: <FaUsers className="text-red-600" />, label: 'Kapasitas', value: car.specs.capacity || '7 Orang' },
-    { icon: <FaCogs className="text-red-600" />, label: 'Transmisi', value: car.specs.transmission || 'Automatic' },
+    { icon: <FaGasPump className="text-red-600" />, label: 'Bahan Bakar', value: car.specs?.fuelType || 'Bensin' },
+    { icon: <FaUsers className="text-red-600" />, label: 'Kapasitas', value: car.specs?.capacity || '7 Orang' },
+    { icon: <FaCogs className="text-red-600" />, label: 'Transmisi', value: car.specs?.transmission || 'Automatic' },
   ];
 
   return (
     <div className="bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
-      {/* Metadata Dinamis */}
       <Helmet>
         <title>{`${car.name} ${car.variant} - Toyota Cimahi`}</title>
         <meta
@@ -42,20 +48,19 @@ const ProductDetail = () => {
           property="og:description"
           content={`Dapatkan ${car.name} ${car.variant} di Toyota Cimahi dengan harga ${car.price}. Lihat spesifikasi, fitur, dan promo eksklusif!`}
         />
-        <meta property="og:image" content={car.image} />
-        <meta property="og:url" content={`https://websitekamu.com/products/${car.id}`} />
+        <meta property="og:image" content={`${import.meta.env.VITE_API_URL}${car.image_url}`} />
+        <meta property="og:url" content={`https://websitekamu.com/products/${car.slug}`} />
         <meta property="og:type" content="product" />
       </Helmet>
 
-      {/* Structured Data for Product */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Product",
           "name": `${car.name} ${car.variant}`,
-          "image": car.image,
-          "description": car.description,
-          "url": `https://websitekamu.com/products/${car.id}`,
+          "image": `${import.meta.env.VITE_API_URL}${car.image_url}`,
+          "description": car.description || `Mobil ${car.name} ${car.variant}`,
+          "url": `https://websitekamu.com/products/${car.slug}`,
           "offers": {
             "@type": "Offer",
             "price": car.price,
@@ -66,7 +71,6 @@ const ProductDetail = () => {
         })}
       </script>
 
-      {/* Breadcrumb */}
       <nav className="fixed top-4 left-4 z-10 flex items-center gap-2">
         <motion.button 
           onClick={() => navigate(-1)}
@@ -79,8 +83,8 @@ const ProductDetail = () => {
           <span>Kembali</span>
         </motion.button>
         <div className="text-sm text-gray-600">
-          <a href="/" className="hover:underline">Beranda</a> &gt; 
-          <a href="#catalog" className="hover:underline">Katalog</a> &gt; 
+          <a href="/" className="hover:underline">Beranda</a> 
+          <a href="#catalog" className="hover:underline">Katalog</a> 
           <span>{car.name} {car.variant}</span>
         </div>
       </nav>
@@ -95,7 +99,7 @@ const ProductDetail = () => {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="bg-gray-200 flex items-center justify-center h-80 md:h-[38rem]">
               <img 
-                src={car.image} 
+                src={`${import.meta.env.VITE_API_URL}${car.image_url}`} 
                 alt={`${car.name} ${car.variant} di Toyota Cimahi`}
                 className="w-full h-full object-contain p-4"
                 loading="lazy"
@@ -111,18 +115,18 @@ const ProductDetail = () => {
                 <span className="px-3 py-1 bg-red-100 text-red-800 text-sm font-medium rounded-full">
                   {car.type}
                 </span>
-                <span className="text-gray-500 text-sm">Kode: {car.id}</span>
+                <span className="text-gray-500 text-sm">Kode: {car.slug}</span>
               </div>
 
               <div className="prose max-w-none mb-6">
                 <h3 className="text-lg font-semibold mb-3">Deskripsi Produk</h3>
-                <p className="text-gray-700">{car.description}</p>
+                <p className="text-gray-700">{car.description || `Mobil ${car.name} ${car.variant}`}</p>
               </div>
 
               <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-4">Fitur Utama</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {car.features.map((feature, index) => (
+                  {(car.features || []).map((feature, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <div className="mt-1 text-red-600">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

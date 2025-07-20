@@ -28,7 +28,8 @@ const Testimonials = ({ testimonials }) => {
             "itemReviewed": {
               "@type": "Product",
               "name": testimonial.car
-            }
+            },
+            "image": `${import.meta.env.VITE_API_URL}${testimonial.image_url}` // Tambahkan URL gambar
           }))
         })}
       </script>
@@ -48,7 +49,7 @@ const Testimonials = ({ testimonials }) => {
             >
               <div className="flex items-center mb-4">
                 <img 
-                  src={testimonial.avatar} 
+                  src={`${import.meta.env.VITE_API_URL}${testimonial.image_url}`} // Gunakan image_url dari backend
                   alt={`Avatar ${testimonial.name}, pelanggan Toyota Cimahi`} 
                   className="w-12 h-12 mr-4 rounded-full"
                   loading="lazy"
