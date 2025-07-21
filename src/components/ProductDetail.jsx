@@ -71,23 +71,27 @@ const ProductDetail = () => {
         })}
       </script>
 
-      <nav className="fixed top-4 left-4 z-10 flex items-center gap-2">
+        <nav className="fixed top-4 left-4 z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-md">
         <motion.button 
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow hover:bg-gray-100 transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Kembali ke halaman sebelumnya"
         >
-          <FaArrowLeft />
-          <span>Kembali</span>
+          <FaArrowLeft className="text-gray-700" />
+          <span className="text-gray-800 font-medium">Kembali</span>
         </motion.button>
-        <div className="text-sm text-gray-600">
-          <a href="/" className="hover:underline">Beranda</a> 
-          <a href="#catalog" className="hover:underline">Katalog</a> 
-          <span>{car.name} {car.variant}</span>
+
+        <div className="flex flex-wrap items-center text-sm text-gray-600 gap-2">
+          <a href="/" className="hover:underline text-blue-600">Beranda</a>
+          <span>/</span>
+          <a href="#catalog" className="hover:underline text-blue-600">Katalog</a>
+          <span>/</span>
+          <span className="font-semibold">{car.name} {car.variant}</span>
         </div>
       </nav>
+
 
       <div className="container mx-auto px-4 sm:px-6 py-20">
         <motion.div 
