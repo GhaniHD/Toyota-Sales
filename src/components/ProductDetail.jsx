@@ -11,7 +11,7 @@ const ProductDetail = () => {
   const [car, setCar] = useState(null);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/cars?slug=${slug}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/cars?slug=${slug}`)
       .then(response => setCar(response.data[0]))
       .catch(err => console.error('Error fetching car:', err));
   }, [slug]);
