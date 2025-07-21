@@ -71,27 +71,26 @@ const ProductDetail = () => {
         })}
       </script>
 
-        <nav className="fixed top-4 left-4 z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-md">
-        <motion.button 
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow hover:bg-gray-100 transition"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Kembali ke halaman sebelumnya"
-        >
-          <FaArrowLeft className="text-gray-700" />
-          <span className="text-gray-800 font-medium">Kembali</span>
-        </motion.button>
+          <nav className="fixed top-4 left-4 z-10 flex items-center gap-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-sm">
+          <motion.button 
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Kembali"
+          >
+            <FaArrowLeft size={14} />
+            <span className="hidden sm:inline">Kembali</span>
+          </motion.button>
 
-        <div className="flex flex-wrap items-center text-sm text-gray-600 gap-2">
-          <a href="/" className="hover:underline text-blue-600">Beranda</a>
-          <span>/</span>
-          <a href="#catalog" className="hover:underline text-blue-600">Katalog</a>
-          <span>/</span>
-          <span className="font-semibold">{car.name} {car.variant}</span>
-        </div>
-      </nav>
+          <div className="w-px h-4 bg-gray-300" />
 
+          <a href="/" className="text-gray-600 hover:text-blue-600 transition">Beranda</a>
+          <div className="w-1 h-1 bg-gray-400 rounded-full" />
+          <a href="#catalog" className="text-gray-600 hover:text-blue-600 transition">Katalog</a>
+          <div className="w-1 h-1 bg-gray-400 rounded-full" />
+          <span className="text-gray-800 font-medium truncate max-w-[150px]">{car.name} {car.variant}</span>
+        </nav>
 
       <div className="container mx-auto px-4 sm:px-6 py-20">
         <motion.div 
