@@ -67,7 +67,7 @@ const SalesProfile = ({ salesInfo }) => {
   const defaultSalesInfo = {
     name: "Rifki",
     image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    phone: "0812-2070-8018",
+    phone: "+6281234567890",
     experience: "10+ Tahun",
     soldCount: "500+ Unit",
     instagram_url: "https://www.instagram.com/rifki_sales_toyota",
@@ -120,7 +120,9 @@ const SalesProfile = ({ salesInfo }) => {
           className="bg-white p-6 sm:p-8 rounded-3xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300"
           variants={cardVariants}
         >
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 sm:gap-8">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap
+
+-6 sm:gap-8">
             <motion.div 
               variants={itemVariants}
               className="w-full lg:w-1/4 flex justify-center"
@@ -166,7 +168,18 @@ const SalesProfile = ({ salesInfo }) => {
                   className="flex items-center justify-center lg:justify-start mb-6"
                 >
                   <Phone className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-green-500" />
-                  <span className="text-green-600 font-semibold text-base sm:text-lg">Phone/WA: {data.phone}</span>
+                  <motion.a
+                    href={`https://wa.me/${data.phone.replace(/[^0-9]/g, '')}`}
+                    className="text-green-600 font-semibold text-base sm:text-lg hover:underline"
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Chat with ${data.name} on WhatsApp`}
+                  >
+                    Phone/WA: {data.phone}
+                  </motion.a>
                 </motion.div>
 
                 <motion.div 
@@ -245,25 +258,24 @@ const SalesProfile = ({ salesInfo }) => {
               </div>
             </motion.div>
             
-           <motion.div 
-            variants={itemVariants}
-            className="w-full lg:w-1/4 flex justify-center"
-          >
-            <div className="w-40 sm:w-48 h-40 sm:h-48 bg-white border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-center shadow-md">
-              <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
-                <div className="text-center w-full h-full flex flex-col justify-center">
-                  <img 
-                    src="/images/barcode.png" 
-                    alt={`QR Code WhatsApp ${data.name}, Sales Toyota Cimahi`} 
-                    className="w-full h-full object-contain rounded-lg"
-                    loading="lazy"
-                  />
-                  <p className="text-[10px] sm:text-xs text-gray-600 mt-2">Scan QR Code</p>
-                  <p className="text-[10px] sm:text-xs text-gray-600">untuk WhatsApp</p>
+            <motion.div 
+              variants={itemVariants}
+              className="w-full lg:w-1/4 flex justify-center"
+            >
+              <div className="w-40 sm:w-48 h-40 sm:h-48 bg-white border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-center shadow-md">
+                <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
+                  <div className="text-center w-full h-full flex flex-col justify-center">
+                    <img 
+                      src="/images/barcode.png" 
+                      alt={`QR Code WhatsApp ${data.name}, Sales Toyota Cimahi`} 
+                      className="w-full h-full object-contain rounded-lg"
+                      loading="lazy"
+                    />
+                    <p className="text-[10px] sm:text-xs text-gray-600 mt-2">Scan WhatsApp QR Code</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
