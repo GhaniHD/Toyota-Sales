@@ -254,7 +254,7 @@ const SalesProfile = ({ salesInfo }) => {
                   <div className="text-center">
                     <div className="w-16 sm:w-20 h-16 sm:h-20 bg-black rounded-lg mb-2 mx-auto flex items-center justify-center">
                       <img 
-                        src="https://static.whatsapp.net/rsrc.php/v3/y6/r/mk4Bj3N-1b2.png" 
+                        src="/images/barcode.png" 
                         alt={`QR Code WhatsApp ${data.name}, Sales Toyota Cimahi`} 
                         className="w-8 sm:w-10 h-8 sm:h-10"
                         loading="lazy"
