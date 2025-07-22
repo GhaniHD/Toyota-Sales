@@ -245,27 +245,25 @@ const SalesProfile = ({ salesInfo }) => {
               </div>
             </motion.div>
             
-            <motion.div 
-              variants={itemVariants}
-              className="w-full lg:w-1/4 flex justify-center"
-            >
-              <div className="w-40 sm:w-48 h-40 sm:h-48 bg-white border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-center shadow-md">
-                <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 sm:w-20 h-16 sm:h-20 bg-black rounded-lg mb-2 mx-auto flex items-center justify-center">
-                      <img 
-                        src="/images/barcode.png" 
-                        alt={`QR Code WhatsApp ${data.name}, Sales Toyota Cimahi`} 
-                        className="w-8 sm:w-10 h-8 sm:h-10"
-                        loading="lazy"
-                      />
-                    </div>
-                    <p className="text-[10px] sm:text-xs text-gray-600">Scan QR Code</p>
-                    <p className="text-[10px] sm:text-xs text-gray-600">untuk WhatsApp</p>
-                  </div>
+           <motion.div 
+            variants={itemVariants}
+            className="w-full lg:w-1/4 flex justify-center"
+          >
+            <div className="w-40 sm:w-48 h-40 sm:h-48 bg-white border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-center shadow-md">
+              <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
+                <div className="text-center w-full h-full flex flex-col justify-center">
+                  <img 
+                    src="/images/barcode.png" 
+                    alt={`QR Code WhatsApp ${data.name}, Sales Toyota Cimahi`} 
+                    className="w-full h-full object-contain rounded-lg"
+                    loading="lazy"
+                  />
+                  <p className="text-[10px] sm:text-xs text-gray-600 mt-2">Scan QR Code</p>
+                  <p className="text-[10px] sm:text-xs text-gray-600">untuk WhatsApp</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
+          </motion.div>
           </div>
         </motion.div>
       </div>
