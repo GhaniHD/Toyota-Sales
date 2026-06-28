@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Phone, Clock, Car, Award, Users, Instagram } from 'lucide-react';
 import { motion, useAnimation } from 'framer-motion';
+import { getImageUrl } from '../utils/imageUrl';
 import { useInView } from 'react-intersection-observer';
 
 // Animation variants
@@ -61,7 +62,7 @@ const SalesProfile = ({ salesInfo }) => {
     }
     console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
     console.log('Sales Info details:', JSON.stringify(salesInfo, null, 2));
-    console.log('Image URL used:', `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${salesInfo?.image_url || defaultSalesInfo.image_url}`);
+    console.log('Image URL used:', getImageUrl(salesInfo?.image_url || defaultSalesInfo.image_url));
   }, [controls, inView, salesInfo]);
 
   const defaultSalesInfo = {
@@ -98,7 +99,7 @@ const SalesProfile = ({ salesInfo }) => {
           "name": data.name,
           "jobTitle": "Sales Consultant Toyota Cimahi",
           "telephone": data.phone,
-          "image": `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${data.image_url || defaultSalesInfo.image_url}`,
+         "image": getImageUrl(data.image_url || defaultSalesInfo.image_url),
           "url": "https://websitekamu.com/#sales-profile",
           "sameAs": [data.instagram_url || defaultSalesInfo.instagram_url, data.tiktok_url || defaultSalesInfo.tiktok_url],
           "worksFor": {
@@ -128,12 +129,12 @@ const SalesProfile = ({ salesInfo }) => {
               className="w-full lg:w-1/4 flex justify-center"
             >
               <img 
-                src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${data.image_url || defaultSalesInfo.image_url}`}
+                src={data.image_url?.startsWith('http') ? data.image_url : getImageUrl(data.image_url)}
                 alt={`Profil ${data.name}, Sales Toyota Cimahi`} 
                 className="w-64 sm:w-80 h-80 sm:h-96 object-cover rounded-2xl shadow-md"
                 loading="lazy"
                 onError={(e) => {
-                  console.error('Image failed to load, using fallback:', defaultSalesInfo.image_url);
+                  e.target.onerror = null;
                   e.target.src = defaultSalesInfo.image_url;
                 }}
               />

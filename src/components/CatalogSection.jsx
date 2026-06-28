@@ -16,7 +16,7 @@ const CatalogSection = ({ catalogByType = {}, carTypes = [], salesInfo = {} }) =
   const filteredTypes = carTypes.length > 0 ? (selectedType === 'All' ? ['All'] : [selectedType]) : [];
 
   // Base URL for images
-  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
 
   // Placeholder image URL
   const placeholderImage = '/images/placeholder-car.jpg'; // Adjust this path to your actual placeholder image
@@ -142,16 +142,20 @@ const CatalogSection = ({ catalogByType = {}, carTypes = [], salesInfo = {} }) =
 
                     <div className="relative">
                       <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 rounded-t-xl md:rounded-t-2xl">
-                        <img
-                          src={car.image_url ? `${baseUrl}${car.image_url}?t=${new Date().getTime()}` : placeholderImage}
-                          alt={`${car.name} ${car.variant} di Toyota Cimahi`}
-                          className="object-cover w-full h-full transition-transform duration-300 transform group-hover:scale-105"
-                          loading="lazy"
-                          onError={(e) => {
-                            console.error(`Failed to load image for ${car.name} ${car.variant}: ${car.image_url}`);
-                            e.target.src = placeholderImage; // Fallback to placeholder on error
-                          }}
-                        />
+                       <img
+  src={
+    car.image_url?.startsWith('http')
+      ? car.image_url
+      : `${baseUrl}${car.image_url}`
+  }
+  alt={`${car.name} ${car.variant} di Toyota Cimahi`}
+  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+  loading="lazy"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = placeholderImage;
+  }}
+/>
                         <div className="absolute px-3 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-md top-3 right-3 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm">
                           <span className="text-xs font-bold text-gray-700">OTR</span>
                         </div>
